@@ -3,6 +3,7 @@
 {% extends "polls/base.html" %}
 {% block title %} {{ task.Task_ID }} {% endblock %}
 {% block content %}
+    {% load static %}
     <head>
         <link rel="stylesheet" type="text/css" href={% static 'css/main_style.css' %}>
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
