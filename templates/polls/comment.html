@@ -2,6 +2,7 @@
 {% extends "polls/base.html" %}
 {% block title %}New Comment{% endblock %}
 {% block content %}
+    {% load static %}
     <head>
         <link rel="stylesheet" type="text/css" href={% static 'css/comment.css' %}>
     </head>
