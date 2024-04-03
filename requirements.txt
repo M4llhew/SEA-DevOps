@@ -12,6 +12,8 @@ click==8.1.7
 cryptography==42.0.2
 dj-database-url==2.1.0
 Django==4.2.5
+django-session-timeout==0.1.0
+django_csp==3.8
 EasyProcess==1.1
 entrypoint2==1.1
 Flask==3.0.0
