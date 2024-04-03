@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -125,9 +126,18 @@ USE_I18N = True
 USE_TZ = True
 
 
+SESSION_EXPIRE_SECONDS = 60 * 60
+
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+
+SESSION_TIMEOUT_REDIRECT = ''
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+
+
 CSP_DEFAULT_SRC = ("'self'",)
-CSP_STYLE_SRC = ("'self'",)
-CSP_SCRIPT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'",'unsafe-inline')
+CSP_SCRIPT_SRC = ("'self'", 'unsafe-inline', 'unsafe-eval')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
