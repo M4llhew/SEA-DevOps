@@ -21,15 +21,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
-# SECRET_KEY = 'django-insecure-nh(7&+%=anemi$9p%83bczx$!0xwktt!n@p+i9xjhm^-&w0-1x'
-DATABASE_URL = os.environ.get('DATABASE_URL')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure-nh(7&+%=anemi$9p%83bczx$!0xwktt!n@p+i9xjhm^-&w0-1x'
+# DATABASE_URL = os.environ.get('DATABASE_URL')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
-# DEBUG = True
+DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+# ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 # Application definition
 
@@ -88,7 +88,7 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
+# DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
