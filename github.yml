@@ -27,15 +27,5 @@ jobs:
        pip install -r requirements.txt
    - name: Run Tests
      run: |
-       python manage.py test
+       cd djangoProject && python manage.py test
  deploy:
-   name: Deploy
-   needs: [build]
-   runs-on: ubuntu-latest
-
-   steps: 
-      - name: Deploy to production
-        uses: johnbeynon/render-deploy-action@v0.0.8
-        with:
-          service-id: ${{ secrets.SERVICE_ID }} # Can be found as part of the Deploy Hook
-          api-key: ${{ secrets.RENDER_API_KEY }} # Create your API key in Render Dashboard > Account Settings

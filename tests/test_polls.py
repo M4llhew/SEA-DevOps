@@ -5,7 +5,6 @@ from django.urls import reverse
 from polls.models import CustomerUser
 from polls.models import Task
 
-
 class ViewsTestCase(TestCase):
     def setUp(self):
         self.user = CustomerUser.objects.create_user(
