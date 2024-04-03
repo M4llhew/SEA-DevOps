@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from polls.models import CustomerUser
 from polls.models import Task
+from polls.views import UserForm
 
 
 class ViewsTestCase(TestCase):
@@ -65,3 +66,49 @@ class ViewsTestCase(TestCase):
     def test_login_view_invalid_credentials(self):
         response = self.client.post(reverse('polls:Login'), {'username': 'testuser', 'password': 'wrongpassword'})
         self.assertNotEqual(response.status_code, 302)
+
+class UserFormTests(TestCase):
+
+    def test_password_validation_success(self):
+        form_data = {
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'username': 'johndoe',
+            'password': 'StrongPassword1!'
+        }
+        form = UserForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_password_validation_too_short(self):
+        form_data = {
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'username': 'johndoe',
+            'password': 'Short1!'
+        }
+        form = UserForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('password', form.errors)
+
+    def test_password_validation_no_digit(self):
+        form_data = {
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'username': 'johndoe',
+            'password': 'NoDigitPass!'
+        }
+        form = UserForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('password', form.errors)
+
+    def test_password_no_symbol(self):
+        form_data = {
+            'first_name': 'John',
+            'last_name': 'Doe',
+            'username': 'johndoe',
+            'password': 'NoSymbolPass1'
+        }
+        form = UserForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('password', form.errors)
+
