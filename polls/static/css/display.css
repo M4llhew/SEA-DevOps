@@ -1,0 +1,101 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #ffeba7;
+    background-color: #1f2029;
+    overflow: hidden;
+    height: 100vh;
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #12141d 100%);
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    z-index: -999;
+}
+
+.container-with-padding {
+    padding: 40px;
+    background-color: #2b2e38;
+    border-radius: 6px;
+    max-width: 100%;
+    position: fixed;
+}
+
+.form-style {
+    background-color: #1f2029;
+}
+
+table tr {
+    border-radius: 10px;
+}
+
+table td {
+    color: #c4c3ca;
+}
+
+.table-button {
+    background-color: #ffeba7;
+    color: #000;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    float: right;
+    margin: 0px 5px 0px 0px;
+    height: 25px;
+    width: 25px;
+}
+
+.table-button:hover {
+    background-color: #000;
+    color: #ffeba7;
+}
+
+.delete-button {
+    background-color: #ffeba7;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #000;
+    border: none;
+}
+
+tbody tr:hover .delete-button {
+    background-color: #1B2735;
+    color: #ffeba7;
+}
+
+tbody tr:hover {
+    background-color: #ffeba7;
+}
+
+tbody tr:hover td {
+    color: #1B2735;
+}
+
+.btn {
+    width: fit-content;
+    height: fit-content;
+    padding: 0 5px;
+    float: left;
+}
+
+.inline-items {
+    display: inline-block;
+}
+
+.container {
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-left: 0;
+}

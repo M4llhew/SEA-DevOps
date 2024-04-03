@@ -6,64 +6,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f7f7f7;
-                margin: 0;
-                padding: 0;
-            }
-
-            h1 {
-                text-align: center;
-                margin-top: 20px;
-            }
-
-            .container {
-                max-width: 400px;
-                margin: 0 auto;
-                background-color: #fff;
-                padding: 20px;
-                border-radius: 5px;
-                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            }
-
-            label {
-                display: block;
-                margin-bottom: 5px;
-            }
-
-            textarea,
-            select {
-                width: 100%;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 3px;
-                font-size: 16px;
-                box-sizing: border-box;
-            }
-
-
-            h1 {
-                padding: 0px 0px 10px 0px
-            }
-
-            .center-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                min-height: 100vh;
-                z-index: -999;
-            }
-
-            .container-with-padding {
-                padding: 40px;
-                background-color: #2b2e38;
-                border-radius: 6px;
-                max-width: 100%;
-                position: fixed;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href={% static 'css/new_task.css' %}
     </head>
     <body>
 
@@ -87,7 +30,7 @@
                         <select id="assigned" name="Alias_Assigned" class="form-style" required>
                             <option value="" disabled selected>Alias Assigned</option>
                             {% for user in users %}
-                                <option value="{{ user.Employee_Number }}">{{ user.username }}</option>
+                                <option value="{{ user.Employee_Number | safe }}">{{ user.username | escape }}</option>
                             {% endfor %}
                         </select>
                         <i class="input-icon uil uil-user"></i>

@@ -135,9 +135,11 @@ SESSION_TIMEOUT_REDIRECT = ''
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 
 
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_STYLE_SRC = ("'self'",'unsafe-inline')
-CSP_SCRIPT_SRC = ("'self'", 'unsafe-inline', 'unsafe-eval')
+CSP_DEFAULT_SRC = ("'none'", "https://unicons.iconscout.com")
+CSP_STYLE_SRC = ("'self'", "https://unicons.iconscout.com", "https://cdnjs.cloudflare.com")
+CSP_SCRIPT_SRC = ("'self'", "https://cdnjs.cloudflare.com", "https://code.jquery.com")
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -147,7 +149,6 @@ STATICFILES_DIRS = [
 ]
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATIC_ROOT = 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type

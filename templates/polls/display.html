@@ -10,111 +10,10 @@
               href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
         <link rel="stylesheet" type="text/css" href={% static 'css/main_style.css' %}>
+        <link rel="stylesheet" type="text/css" href={% static 'css/display.css' %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Task Management</title>
-        <style>
-            body {
-                font-family: 'Poppins', sans-serif;
-                font-weight: 300;
-                line-height: 1.7;
-                color: #ffeba7;
-                background-color: #1f2029;
-                overflow: hidden;
-                height: 100vh;
-                background: radial-gradient(ellipse at bottom, #1B2735 0%, #12141d 100%);
-            }
 
-            .center-container {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                min-height: 100vh;
-                z-index: -999;
-            }
-
-            .container-with-padding {
-                padding: 40px;
-                background-color: #2b2e38;
-                border-radius: 6px;
-                max-width: 100%;
-                position: fixed;
-            }
-
-            .form-style {
-                background-color: #1f2029;
-            }
-
-            table tr {
-                border-radius: 10px;
-            }
-
-            table td {
-                color: #c4c3ca;
-            }
-
-            .table-button {
-                background-color: #ffeba7;
-                color: #000;
-                border: none;
-                padding: 5px 10px;
-                border-radius: 5px;
-                cursor: pointer;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                text-decoration: none;
-                transition: background-color 0.3s, color 0.3s;
-                float: right;
-                margin: 0px 5px 0px 0px;
-                height: 25px;
-                width: 25px;
-            }
-
-            .table-button:hover {
-                background-color: #000;
-                color: #ffeba7;
-            }
-
-            .delete-button {
-                background-color: #ffeba7;
-                border-radius: 5px;
-                text-decoration: none;
-                color: #000;
-                border: none;
-            }
-
-            tbody tr:hover .delete-button {
-                background-color: #1B2735;
-                color: #ffeba7;
-            }
-
-            tbody tr:hover {
-                background-color: #ffeba7;
-            }
-
-            tbody tr:hover td {
-                color: #1B2735;
-            }
-
-            .btn {
-                width: fit-content;
-                height: fit-content;
-                padding: 0 5px;
-                float: left;
-            }
-
-            .inline-items {
-                display: inline-block;
-            }
-
-            .container {
-                display: inline-block;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                padding-left: 0;
-            }
-        </style>
     </head>
     <body>
     <div id="stars"></div>
@@ -153,14 +52,14 @@
                     {% for task in Tasks %}
                         <div class="form-group">
                             <tr class="form-style small-bottom-margin" data-progress="{{ task.Progress }}"
-                                data-task-id="{{ task.Task_ID }}">
-                                <td class="p-2">{{ task.Title }}</td>
-                                <td class="p-2">{{ task.Desc }}</td>
-                                <td class="p-2">{{ task.Alias_Assigned }}</td>
+                                data-task-id="{{ task.Task_ID | safe }}">
+                                <td class="p-2">{{ task.Title | escape }}</td>
+                                <td class="p-2">{{ task.Desc | escape }}</td>
+                                <td class="p-2">{{ task.Alias_Assigned | safe }}</td>
                                 <td class="p-2">
                                     {% csrf_token %}
                                     <select class="progress-dropdown"
-                                            onchange="updateProgress(this, '{{ task.Task_ID }}')">
+                                            onchange="updateProgress(this, '{{ task.Task_ID | safe }}')">
                                         <option value="TODO" {% if task.Progress == 'TODO' %} selected {% endif %}>TODO
                                         </option>
                                         <option value="INPROGRESS" {% if task.Progress == 'INPROGRESS' %}
@@ -191,61 +90,7 @@
             </div>
         </div>
     </div>
+    <script src="{% static 'javascript/display.js' %}"></script>
     </body>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelector("tbody").addEventListener("click", function (event) {
-                if (event.target.closest(".progress-dropdown") || (event.target.closest(".delete-button"))) {
-                    return;
-                }
-                if (event.target.closest("tr")) {
-                    const taskID = event.target.closest("tr").getAttribute("data-task-id");
-                    window.location.href = `/task/${taskID}/`;
-                }
-            });
-        });
-
-        let ascendingOrder = true;
-
-        function toggleOrder() {
-            var table = document.getElementById('taskTable');
-            var rows = Array.from(table.querySelectorAll('tr[data-progress]'));
-            rows.sort(function (a, b) {
-                var progressOrder = ['TODO', 'INPROGRESS', 'REVIEW', 'DONE'];
-                var progressA = a.getAttribute('data-progress');
-                var progressB = b.getAttribute('data-progress');
-                if (ascendingOrder) {
-                    return progressOrder.indexOf(progressA) - progressOrder.indexOf(progressB);
-                } else {
-                    return progressOrder.indexOf(progressB) - progressOrder.indexOf(progressA);
-                }
-            });
-            rows.forEach(function (row) {
-                table.appendChild(row);
-            });
-            ascendingOrder = !ascendingOrder;
-        }
-
-        function updateProgress(selectElement, taskId) {
-            var newProgress = selectElement.value;
-            fetch('update-progress', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({taskId, newProgress}),
-            })
-                .then(response => {
-                    if (response.ok) {
-                        console.log('Progress updated successfully.');
-                    } else {
-                        console.error('Error updating progress.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-    </script>
     </html>
 {% endblock %}
